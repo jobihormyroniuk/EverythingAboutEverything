@@ -6,4 +6,10 @@
 //  Copyright © 2019 Ihor Myroniuk. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+protocol Presentation {
+    
+    func start()
+    
+}

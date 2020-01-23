@@ -1,0 +1,21 @@
+{
+  "name": "ACoreAnimation",
+  "version": "0.1.2",
+  "summary": "Advanced CoreAnimation.",
+  "description": "Advanced CoreAnimation approach.",
+  "homepage": "https://github.com/ihormyroniuk/ACoreAnimation",
+  "license": "MIT",
+  "authors": {
+    "Ihor Myroniuk": "ihormyroniuk@gmail.com"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "source": {
+    "git": "https://github.com/ihormyroniuk/ACoreAnimation.git",
+    "tag": "0.1.2"
+  },
+  "source_files": "ACoreAnimation/**/*.{swift}",
+  "swift_versions": "4.2",
+  "swift_version": "4.2"
+}

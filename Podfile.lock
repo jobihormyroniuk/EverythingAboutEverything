@@ -1,0 +1,47 @@
+PODS:
+  - ACoreAnimation (0.1.2)
+  - AFoundation (0.1.2)
+  - AnyFormatKit (2.0.1)
+  - AUIKit (0.1.2)
+
+DEPENDENCIES:
+  - ACoreAnimation (from `https://github.com/ihormyroniuk/ACoreAnimation.git`, branch `master`)
+  - AFoundation (from `https://github.com/ihormyroniuk/AFoundation.git`, branch `master`)
+  - AnyFormatKit
+  - AUIKit (from `https://github.com/ihormyroniuk/AUIKit.git`, branch `master`)
+
+SPEC REPOS:
+  trunk:
+    - AnyFormatKit
+
+EXTERNAL SOURCES:
+  ACoreAnimation:
+    :branch: master
+    :git: https://github.com/ihormyroniuk/ACoreAnimation.git
+  AFoundation:
+    :branch: master
+    :git: https://github.com/ihormyroniuk/AFoundation.git
+  AUIKit:
+    :branch: master
+    :git: https://github.com/ihormyroniuk/AUIKit.git
+
+CHECKOUT OPTIONS:
+  ACoreAnimation:
+    :commit: eb515e3c76ddf04aa6ff146c329a59a77ccc0bf6
+    :git: https://github.com/ihormyroniuk/ACoreAnimation.git
+  AFoundation:
+    :commit: c029a4bd80dfca27242bf569aba53ae727a03503
+    :git: https://github.com/ihormyroniuk/AFoundation.git
+  AUIKit:
+    :commit: bc9b6cc0d2b5cf91366bb3f7b5ef6015840be4c5
+    :git: https://github.com/ihormyroniuk/AUIKit.git
+
+SPEC CHECKSUMS:
+  ACoreAnimation: 10185e3dbfe3bd19367e4fd1e3829439d3c83d48
+  AFoundation: 92592f523d7a2d8748e77dd649047abba07a17fd
+  AnyFormatKit: 61952b81da09f5d33f6e8c6f33eef43e33d6ff9d
+  AUIKit: ab21908129fc3587a10f14059b65ec4d528d9baf
+
+PODFILE CHECKSUM: dfb68496e8930c683e09d618b2db6887d70ee223
+
+COCOAPODS: 1.8.4

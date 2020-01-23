@@ -1,0 +1,5 @@
+${PODS_ROOT}/Target Support Files/Pods-EverythingAboutEverything/Pods-EverythingAboutEverything-frameworks.sh
+${BUILT_PRODUCTS_DIR}/ACoreAnimation/ACoreAnimation.framework
+${BUILT_PRODUCTS_DIR}/AFoundation/AFoundation.framework
+${BUILT_PRODUCTS_DIR}/AUIKit/AUIKit.framework
+${BUILT_PRODUCTS_DIR}/AnyFormatKit/AnyFormatKit.framework

@@ -1,0 +1,6 @@
+framework module ACoreAnimation {
+  umbrella header "ACoreAnimation-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -6,4 +6,28 @@
 //  Copyright © 2019 Ihor Myroniuk. All rights reserved.
 //
 
-import Foundation
+import UIKit
+import AUIKit
+
+class ImageButton: AUIButton {
+
+    // MARK: Setup
+
+    override func setup() {
+        super.setup()
+        adjustsImageWhenHighlighted = false
+    }
+
+    // MARK: States
+
+    override var isHighlighted: Bool {
+        willSet {
+            if newValue {
+                alpha = 0.6
+            } else {
+                alpha = 1
+            }
+        }
+    }
+
+}

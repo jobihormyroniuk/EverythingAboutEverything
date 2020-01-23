@@ -6,4 +6,16 @@
 //  Copyright © 2019 Ihor Myroniuk. All rights reserved.
 //
 
-import Foundation
+import UIKit
+import AUIKit
+
+class IPhonePresentation: AUIWindowPresentation, Presentation {
+    
+    func start() {
+        let screenView = SignUpScreenView()
+        let screenController = SignUpScreenController(view: screenView)
+        window.rootViewController = screenController
+        window.makeKeyAndVisible()
+    }
+    
+}
