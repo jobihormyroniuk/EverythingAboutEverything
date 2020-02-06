@@ -56,7 +56,7 @@ class SignUpScreenController: AUIDefaultScreenController, AUIControlControllerDi
         setupPhoneTextFieldInputView()
         setupBirthdayTextFieldInputView()
         setupSignInButtonController()
-        setupTermsAndConditionsLabel()
+        setupTermsAndConditionsInteractiveLabel()
         setContent()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
@@ -131,8 +131,8 @@ class SignUpScreenController: AUIDefaultScreenController, AUIControlControllerDi
         birthdayTextFieldInputView.view = screenView.birthdayTextFieldInputView
     }
 
-    func setupTermsAndConditionsLabel() {
-        screenView.termsAndConditionsLabel.addTarget(self, action: #selector(termsAndConditionsLabelTouchUpInside), for: .touchUpInside)
+    func setupTermsAndConditionsInteractiveLabel() {
+        screenView.termsAndConditionsInteractiveLabel.addTarget(self, action: #selector(termsAndConditionsInteractiveLabelTouchUpInside), for: .touchUpInside)
     }
 
     func setupSignInButtonController() {
@@ -204,8 +204,8 @@ class SignUpScreenController: AUIDefaultScreenController, AUIControlControllerDi
         screenView.endEditing(true)
     }
 
-    @objc func termsAndConditionsLabelTouchUpInside(interaction: String) {
-        print(interaction)
+    @objc func termsAndConditionsInteractiveLabelTouchUpInside(interactiveTextIdentifier: String) {
+        print(interactiveTextIdentifier)
     }
 
     func cancel() {

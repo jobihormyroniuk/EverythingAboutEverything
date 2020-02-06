@@ -23,7 +23,7 @@ class SignUpScreenView: ScreenViewWithDefaultStatusBarAndDefaultNavigationBar {
     var securePasswordButton: UIButton { return passwordTextFieldInputView.button }
     let phoneTextFieldInputView = LeftIconedCenterTitledBottomUnderlinedTextFieldInputView()
     let birthdayTextFieldInputView = LeftIconedCenterTitledBottomUnderlinedTextFieldInputView()
-    let termsAndConditionsLabel = AUIInteractiveLabel()
+    let termsAndConditionsInteractiveLabel = AUIInteractiveLabel()
     let signUpButton = FilledTextButton()
 
     // MARK: Setup
@@ -45,8 +45,8 @@ class SignUpScreenView: ScreenViewWithDefaultStatusBarAndDefaultNavigationBar {
         scrollView.addSubview(phoneTextFieldInputView)
         setupPhoneTextFieldInputView()
         scrollView.addSubview(birthdayTextFieldInputView)
-        scrollView.addSubview(termsAndConditionsLabel)
-        setupTermsAndConditionsLabel()
+        scrollView.addSubview(termsAndConditionsInteractiveLabel)
+        setupTermsAndConditionsInteractiveLabel()
         scrollView.addSubview(signUpButton)
         setupBirthdayTextFieldInputView()
     }
@@ -88,9 +88,9 @@ class SignUpScreenView: ScreenViewWithDefaultStatusBarAndDefaultNavigationBar {
         birthdayTextFieldInputView.iconLayerMask.contents = iconImage?.cgImage
     }
 
-    func setupTermsAndConditionsLabel() {
-        termsAndConditionsLabel.numberOfLines = 0
-        termsAndConditionsLabel.lineBreakMode = .byWordWrapping
+    func setupTermsAndConditionsInteractiveLabel() {
+        termsAndConditionsInteractiveLabel.numberOfLines = 0
+        termsAndConditionsInteractiveLabel.lineBreakMode = .byWordWrapping
     }
 
     // MARK: Layout
@@ -197,14 +197,14 @@ class SignUpScreenView: ScreenViewWithDefaultStatusBarAndDefaultNavigationBar {
         let x: CGFloat = 24
         let y: CGFloat = birthdayTextFieldInputView.frame.origin.y + birthdayTextFieldInputView.frame.size.height + 24
         let width: CGFloat = bounds.size.width - x * 2
-        let height: CGFloat = termsAndConditionsLabel.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)).height
+        let height: CGFloat = termsAndConditionsInteractiveLabel.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)).height
         let frame = CGRect(x: x, y: y, width: width, height: height)
-        termsAndConditionsLabel.frame = frame
+        termsAndConditionsInteractiveLabel.frame = frame
     }
 
     func layoutSignUpButton() {
         let x: CGFloat = 24
-        let y: CGFloat = termsAndConditionsLabel.frame.origin.y + termsAndConditionsLabel.frame.size.height + 24
+        let y: CGFloat = termsAndConditionsInteractiveLabel.frame.origin.y + termsAndConditionsInteractiveLabel.frame.size.height + 24
         let width: CGFloat = bounds.size.width - x * 2
         let height: CGFloat = 40
         let frame = CGRect(x: x, y: y, width: width, height: height)
@@ -254,7 +254,7 @@ class SignUpScreenView: ScreenViewWithDefaultStatusBarAndDefaultNavigationBar {
         guard let range = agree.range(of: termsAndConditions.0) else { return }
         let nsRange = NSRange(range, in: agreeTermsAndConditionsString.string)
         agreeTermsAndConditionsString.addAttributes(termsAndConditionsAttributes, range: nsRange)
-        self.termsAndConditionsLabel.attributedText = agreeTermsAndConditionsString
+        self.termsAndConditionsInteractiveLabel.attributedText = agreeTermsAndConditionsString
     }
 
 }
