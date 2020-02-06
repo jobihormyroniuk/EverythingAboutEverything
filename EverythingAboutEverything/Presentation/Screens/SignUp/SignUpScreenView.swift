@@ -242,16 +242,16 @@ class SignUpScreenView: ScreenViewWithDefaultStatusBarAndDefaultNavigationBar {
 
     // MARK: Setters
 
-    func setAgreeTermsAndConditionsText(agree: String, termsAndConditions: String) {
+    func setAgreeTermsAndConditionsText(agree: String, termsAndConditions: (String, String)) {
         let termsAndConditionsAttributes: [NSAttributedString.Key: Any] =
             [.font: UIFont.systemFont(ofSize: 12),
              .foregroundColor: UIColor(red8Bits: 204, green8Bits: 0, blue8Bits: 0),
-             .interaction: termsAndConditions]
+             .interaction: termsAndConditions.1]
         let agreeTermsAndConditionsAttributes: [NSAttributedString.Key: Any] =
             [.font: UIFont.systemFont(ofSize: 12),
              .foregroundColor: UIColor(red8Bits: 102, green8Bits: 102, blue8Bits: 102)]
         let agreeTermsAndConditionsString = NSMutableAttributedString(string: agree, attributes: agreeTermsAndConditionsAttributes)
-        guard let range = agree.range(of: termsAndConditions) else { return }
+        guard let range = agree.range(of: termsAndConditions.0) else { return }
         let nsRange = NSRange(range, in: agreeTermsAndConditionsString.string)
         agreeTermsAndConditionsString.addAttributes(termsAndConditionsAttributes, range: nsRange)
         self.termsAndConditionsLabel.attributedText = agreeTermsAndConditionsString

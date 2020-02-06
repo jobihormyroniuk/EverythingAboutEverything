@@ -9,7 +9,6 @@
 import UIKit
 import AUIKit
 import AFoundation
-import AnyFormatKit
 
 class SignUpScreenController: AUIDefaultScreenController, AUIControlControllerDidValueChangedObserver, AUITextFieldControllerDidBeginEditingObserver, AUIControlControllerDidTouchUpInsideObserver, AUITextFieldControllerDidTapReturnKeyObserver {
 
@@ -27,43 +26,38 @@ class SignUpScreenController: AUIDefaultScreenController, AUIControlControllerDi
 
     private let tapGestureRecognizer = UITapGestureRecognizer()
     private let cancelButtonController = AUITitleButtonController()
-
     private let firstNameTextFieldController = AUITextInputFilterValidatorFormatterTextFieldController()
     private let firstNameTextFieldInputView = AUIResponsiveTextFieldTextInputViewController()
-
     private let lastNameTextFieldController = AUITextInputFilterValidatorFormatterTextFieldController()
     private let lastNameTextFieldInputView = AUIResponsiveTextFieldTextInputViewController()
-
     private let emailTextFieldController = AUIEmptyTextFieldController()
     private let emailTextFieldInputView = AUIResponsiveTextFieldTextInputViewController()
-
     private let passwordTextFieldController = AUITextInputFilterValidatorFormatterTextFieldController()
     private let passwordTextFieldInputView = AUIResponsiveTextFieldTextInputViewController()
     private let securePasswordButtonController = AUITitleButtonController()
-
     private let phoneTextFieldController = AUITextInputFilterValidatorFormatterTextFieldController()
     private let phoneTextFieldInputView = AUIResponsiveTextFieldTextInputViewController()
-
     private let birthdayTextFieldController = AUIEmptyTextFieldController()
     private let birthdayTextFieldInputView = AUIResponsiveTextFieldTextInputViewController()
     private let birthdayDatePickerController = AUIDefaultDatePickerController()
-    
+    private let termsAndConditionsInteractiveTextIdentifier = "TermsAndConditions"
     private let signUpButtonController = AUITitleButtonController()
 
     // MARK: Setup
 
     override func setup() {
         super.setup()
-        self.setupTapGestureRecognizer()
-        self.setupCancelButtonController()
-        self.setupFirstNameTextFieldInputView()
-        self.setupLastNameTextFieldInputView()
-        self.setupEmailTextFieldInputView()
-        self.setupPasswordTextFieldInputView()
-        self.setupPhoneTextFieldInputView()
-        self.setupBirthdayTextFieldInputView()
-        self.setupSignInButtonController()
-        self.setContent()
+        setupTapGestureRecognizer()
+        setupCancelButtonController()
+        setupFirstNameTextFieldInputView()
+        setupLastNameTextFieldInputView()
+        setupEmailTextFieldInputView()
+        setupPasswordTextFieldInputView()
+        setupPhoneTextFieldInputView()
+        setupBirthdayTextFieldInputView()
+        setupSignInButtonController()
+        setupTermsAndConditionsLabel()
+        setContent()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
     }
@@ -74,8 +68,8 @@ class SignUpScreenController: AUIDefaultScreenController, AUIControlControllerDi
     }
 
     func setupCancelButtonController() {
-        self.cancelButtonController.button = self.screenView.cancelButton
-        self.cancelButtonController.addDidTouchUpInsideObserver(self)
+        cancelButtonController.button = screenView.cancelButton
+        cancelButtonController.addDidTouchUpInsideObserver(self)
     }
 
     func setupFirstNameTextFieldInputView() {
@@ -84,8 +78,8 @@ class SignUpScreenController: AUIDefaultScreenController, AUIControlControllerDi
         firstNameTextFieldController.addDidTapReturnKeyObserver(self)
         let textInputValidator = AUIMaximumLenghtTextInputValidator(maximumLength: 16)
         firstNameTextFieldController.inputTextValidator = textInputValidator
-        self.firstNameTextFieldInputView.textFieldController = firstNameTextFieldController
-        self.firstNameTextFieldInputView.view = self.screenView.firstNameTextFieldInputView
+        firstNameTextFieldInputView.textFieldController = firstNameTextFieldController
+        firstNameTextFieldInputView.view = screenView.firstNameTextFieldInputView
     }
 
     func setupLastNameTextFieldInputView() {
@@ -94,16 +88,16 @@ class SignUpScreenController: AUIDefaultScreenController, AUIControlControllerDi
         lastNameTextFieldController.addDidTapReturnKeyObserver(self)
         let textInputValidator = AUIMaximumLenghtTextInputValidator(maximumLength: 24)
         lastNameTextFieldController.inputTextValidator = textInputValidator
-        self.lastNameTextFieldInputView.textFieldController = lastNameTextFieldController
-        self.lastNameTextFieldInputView.view = self.screenView.lastNameTextFieldInputView
+        lastNameTextFieldInputView.textFieldController = lastNameTextFieldController
+        lastNameTextFieldInputView.view = screenView.lastNameTextFieldInputView
     }
 
     func setupEmailTextFieldInputView() {
         emailTextFieldController.returnKeyType = .next
         emailTextFieldController.keyboardType = .emailAddress
         emailTextFieldController.addDidTapReturnKeyObserver(self)
-        self.emailTextFieldInputView.textFieldController = emailTextFieldController
-        self.emailTextFieldInputView.view = self.screenView.emailTextFieldInputView
+        emailTextFieldInputView.textFieldController = emailTextFieldController
+        emailTextFieldInputView.view = screenView.emailTextFieldInputView
     }
 
     func setupPasswordTextFieldInputView() {
@@ -114,35 +108,36 @@ class SignUpScreenController: AUIDefaultScreenController, AUIControlControllerDi
         passwordTextFieldController.addDidTapReturnKeyObserver(self)
         let textInputValidator = AUIMaximumLenghtTextInputValidator(maximumLength: 64)
         passwordTextFieldController.inputTextValidator = textInputValidator
-        self.passwordTextFieldInputView.textFieldController = passwordTextFieldController
-        self.passwordTextFieldInputView.view = self.screenView.passwordTextFieldInputView
-        self.securePasswordButtonController.button = self.screenView.securePasswordButton
-        self.securePasswordButtonController.addDidTouchUpInsideObserver(self)
+        passwordTextFieldInputView.textFieldController = passwordTextFieldController
+        passwordTextFieldInputView.view = screenView.passwordTextFieldInputView
+        securePasswordButtonController.button = screenView.securePasswordButton
+        securePasswordButtonController.addDidTouchUpInsideObserver(self)
     }
 
     func setupPhoneTextFieldInputView() {
-        let anyFormatKitTextInputFormatter = DefaultTextInputFormatter(textPattern: "(###) ### ###")
-        let textInputFormatter = AnyFormatKitTextInputFormatterAdapterToAUITextInputFormatter(anyFormatKitTextInputFormatter: anyFormatKitTextInputFormatter)
-        phoneTextFieldController.inputTextFormatter = textInputFormatter
         phoneTextFieldController.keyboardType = .asciiCapableNumberPad
         phoneTextFieldController.addDidTapReturnKeyObserver(self)
-        self.phoneTextFieldInputView.textFieldController = phoneTextFieldController
-        self.phoneTextFieldInputView.view = self.screenView.phoneTextFieldInputView
+        phoneTextFieldInputView.textFieldController = phoneTextFieldController
+        phoneTextFieldInputView.view = screenView.phoneTextFieldInputView
     }
 
     func setupBirthdayTextFieldInputView() {
         birthdayTextFieldController.inputViewController = self.birthdayDatePickerController
         birthdayTextFieldController.addDidBeginEditingObserver(self)
-        self.birthdayDatePickerController.maximumDate = Date()
-        self.birthdayDatePickerController.mode = .date
-        self.birthdayDatePickerController.addDidValueChangedObserver(self)
-        self.birthdayTextFieldInputView.textFieldController = birthdayTextFieldController
-        self.birthdayTextFieldInputView.view = self.screenView.birthdayTextFieldInputView
+        birthdayDatePickerController.maximumDate = Date()
+        birthdayDatePickerController.mode = .date
+        birthdayDatePickerController.addDidValueChangedObserver(self)
+        birthdayTextFieldInputView.textFieldController = birthdayTextFieldController
+        birthdayTextFieldInputView.view = screenView.birthdayTextFieldInputView
+    }
+
+    func setupTermsAndConditionsLabel() {
+        screenView.termsAndConditionsLabel.addTarget(self, action: #selector(termsAndConditionsLabelTouchUpInside), for: .touchUpInside)
     }
 
     func setupSignInButtonController() {
-        self.signUpButtonController.button = self.screenView.signUpButton
-        self.signUpButtonController.addDidTouchUpInsideObserver(self)
+        signUpButtonController.button = screenView.signUpButton
+        signUpButtonController.addDidTouchUpInsideObserver(self)
     }
 
     // MARK: Events
@@ -163,50 +158,54 @@ class SignUpScreenController: AUIDefaultScreenController, AUIControlControllerDi
 
     func textFieldControllerDidBeginEditing(_ textFieldController: AUITextFieldController) {
         if self.birthdayTextFieldInputView.textFieldController === textFieldController {
-            self.setSelectedBirtday()
+            setSelectedBirtday()
         }
     }
 
     func controlControllerDidValueChanged(_ controlController: AUIControlController) {
-        if self.birthdayDatePickerController === controlController {
-            self.setSelectedBirtday()
+        if birthdayDatePickerController === controlController {
+            setSelectedBirtday()
         }
     }
 
     func controlControllerDidTouchUpInside(_ controlController: AUIControlController) {
-        if self.cancelButtonController === controlController {
-            self.cancel()
+        if cancelButtonController === controlController {
+            cancel()
         }
         if self.securePasswordButtonController === controlController {
-            self.securePassword()
+            securePassword()
         }
         if self.signUpButtonController === controlController {
-            self.signUp()
+            signUp()
         }
     }
 
     func textFieldControllerDidTapReturnKey(_ textFieldController: AUITextFieldController) {
         if firstNameTextFieldInputView.textFieldController === textFieldController {
-            self.lastNameTextFieldInputView.textFieldController?.becomeFirstResponder()
+            lastNameTextFieldInputView.textFieldController?.becomeFirstResponder()
         }
         if lastNameTextFieldInputView.textFieldController === textFieldController {
-            self.emailTextFieldInputView.textFieldController?.becomeFirstResponder()
+            emailTextFieldInputView.textFieldController?.becomeFirstResponder()
         }
         if emailTextFieldInputView.textFieldController === textFieldController {
-            self.passwordTextFieldInputView.textFieldController?.becomeFirstResponder()
+            passwordTextFieldInputView.textFieldController?.becomeFirstResponder()
         }
         if passwordTextFieldInputView.textFieldController === textFieldController {
-            self.phoneTextFieldInputView.textFieldController?.becomeFirstResponder()
+            phoneTextFieldInputView.textFieldController?.becomeFirstResponder()
         }
         if phoneTextFieldInputView.textFieldController === textFieldController {
-            self.birthdayTextFieldInputView.textFieldController?.becomeFirstResponder()
+            birthdayTextFieldInputView.textFieldController?.becomeFirstResponder()
         }
     }
 
     // MARK: Actions
 
     @objc func tapGestureRecognizerAction() {
-        self.screenView.endEditing(true)
+        screenView.endEditing(true)
+    }
+
+    @objc func termsAndConditionsLabelTouchUpInside(interaction: String) {
+        print(interaction)
     }
 
     func cancel() {
@@ -226,7 +225,7 @@ class SignUpScreenController: AUIDefaultScreenController, AUIControlControllerDi
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .long
         let birthdayString = dateFormatter.string(from: birthday)
-        self.birthdayTextFieldInputView.textFieldController?.text = birthdayString
+        birthdayTextFieldInputView.textFieldController?.text = birthdayString
     }
 
     func signUp() {
@@ -256,7 +255,7 @@ class SignUpScreenController: AUIDefaultScreenController, AUIControlControllerDi
         screenView.passwordTextFieldInputView.titleTextLayer.string = localization.localizeText("passwordInputViewTitlePlaceholder")
         screenView.phoneTextFieldInputView.titleTextLayer.string = localization.localizeText("phoneInputViewTitlePlaceholder")
         screenView.birthdayTextFieldInputView.titleTextLayer.string = localization.localizeText("birthdayInputViewTitlePlaceholder")
-        screenView.setAgreeTermsAndConditionsText(agree: localization.localizeText("agreeTermsAndConditions", localization.localizeText("referenceTermsAndConditions") ?? "") ?? "", termsAndConditions: localization.localizeText("referenceTermsAndConditions") ?? "")
+        screenView.setAgreeTermsAndConditionsText(agree: localization.localizeText("agreeTermsAndConditions", localization.localizeText("referenceTermsAndConditions") ?? "") ?? "", termsAndConditions: (localization.localizeText("referenceTermsAndConditions") ?? "", termsAndConditionsInteractiveTextIdentifier))
         signUpButtonController.title = localization.localizeText("signInButtonTitle")
     }
 
